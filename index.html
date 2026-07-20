@@ -1,1 +1,29 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Voxel Earth</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+<canvas id="globe"></canvas>
+<div id="brand"><div class="title">VOXEL EARTH</div><div class="sub">LIVE 3D WEATHER PROTOTYPE</div></div>
+<div id="status" class="panel"><span class="live"><i class="dot"></i>LIVE</span><span class="extra" id="count">0 voxels</span><span id="utc">UTC</span></div>
+<div id="notice">Loading live weather model data…</div>
+<aside id="layers" class="panel">
+<div class="head"><span>LAYERS</span><span id="active">5 / 5</span></div>
+<div class="row"><div class="icon">☁</div><div class="info"><div class="name">Clouds</div><div class="desc">Coverage and altitude</div></div><label class="switch"><input data-layer="clouds" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="row"><div class="icon">◆</div><div class="info"><div class="name">Rain</div><div class="desc">Precipitation cells</div></div><label class="switch"><input data-layer="rain" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="row"><div class="icon">◉</div><div class="info"><div class="name">Temperature</div><div class="desc">Surface heat columns</div></div><label class="switch"><input data-layer="temperature" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="row"><div class="icon">≋</div><div class="info"><div class="name">Wind</div><div class="desc">Direction traces</div></div><label class="switch"><input data-layer="wind" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="row"><div class="icon">▦</div><div class="info"><div class="name">Voxel grid</div><div class="desc">Atmospheric shell</div></div><label class="switch"><input data-layer="grid" type="checkbox" checked><span class="slider"></span></label></div>
+</aside>
+<aside id="metrics" class="panel"><div class="head"><span>GLOBAL SAMPLE</span></div><div class="metric"><span>Mean temp</span><b id="mt">—</b></div><div class="metric"><span>Mean cloud</span><b id="mc">—</b></div><div class="metric"><span>Peak wind</span><b id="mw">—</b></div><div class="metric"><span>Rain cells</span><b id="mr">—</b></div></aside>
+<div id="timeline" class="panel"><button id="play">▶</button><span id="time">NOW</span><input id="range" type="range" min="-24" max="0" value="0"></div>
+<div id="tip"></div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
