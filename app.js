@@ -1,5 +1,5 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/+esm';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm';
+import * as THREE from 'https://esm.sh/three@0.167.0';
+import {OrbitControls} from 'https://esm.sh/three@0.167.0/examples/jsm/controls/OrbitControls.js';
 
 const canvas=document.querySelector('#globe');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
