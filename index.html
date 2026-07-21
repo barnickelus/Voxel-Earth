@@ -8,23 +8,77 @@
 </head>
 <body>
 <div id="app">
-<canvas id="globe"></canvas>
-<div id="brand"><div class="title">VOXEL EARTH</div><div class="sub">LIVE 3D WEATHER PROTOTYPE</div></div>
-<div id="status" class="panel"><span class="live"><i class="dot"></i>LIVE</span><span class="extra" id="count">0 voxels</span><span id="utc">UTC</span></div>
-<div id="notice">Loading live weather model data…</div>
-<aside id="layers" class="panel">
-<div class="head"><span>LAYERS</span><span id="active">5 / 5</span></div>
-<div class="row"><div class="icon">☁</div><div class="info"><div class="name">Clouds</div><div class="desc">Coverage and altitude</div></div><label class="switch"><input data-layer="clouds" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="row"><div class="icon">◆</div><div class="info"><div class="name">Rain</div><div class="desc">Precipitation cells</div></div><label class="switch"><input data-layer="rain" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="row"><div class="icon">◉</div><div class="info"><div class="name">Temperature</div><div class="desc">Surface heat columns</div></div><label class="switch"><input data-layer="temperature" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="row"><div class="icon">≋</div><div class="info"><div class="name">Wind</div><div class="desc">Direction traces</div></div><label class="switch"><input data-layer="wind" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="row"><div class="icon">▦</div><div class="info"><div class="name">Voxel grid</div><div class="desc">Atmospheric shell</div></div><label class="switch"><input data-layer="grid" type="checkbox" checked><span class="slider"></span></label></div>
-</aside>
-<aside id="metrics" class="panel"><div class="head"><span>GLOBAL SAMPLE</span></div><div class="metric"><span>Mean temp</span><b id="mt">—</b></div><div class="metric"><span>Mean cloud</span><b id="mc">—</b></div><div class="metric"><span>Peak wind</span><b id="mw">—</b></div><div class="metric"><span>Rain cells</span><b id="mr">—</b></div></aside>
-<div id="timeline" class="panel"><button id="play">▶</button><span id="time">NOW</span><input id="range" type="range" min="-24" max="0" value="0"></div>
-<div id="tip"></div>
+  <canvas id="globe"></canvas>
+
+  <div id="brand">
+    <div class="title">VOXEL EARTH</div>
+    <div class="sub">LIVE LAYERED ATMOSPHERE</div>
+  </div>
+
+  <div id="status" class="panel">
+    <span class="live"><i class="dot"></i>LIVE</span>
+    <span class="extra" id="count">0 voxels</span>
+    <span id="utc">UTC</span>
+  </div>
+
+  <div id="notice">Loading layered weather fields…</div>
+
+  <aside id="layers" class="panel">
+    <div class="head"><span>ATMOSPHERIC SHELLS</span><span id="active">6 / 6</span></div>
+
+    <section class="layer-block">
+      <div class="row compact">
+        <div class="icon low-icon">L</div>
+        <div class="info"><div class="name">Low atmosphere</div><div class="desc">Fog, stratus, cumulus · 0–3 km</div></div>
+        <label class="switch"><input data-layer="low" type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="range-row"><span>Opacity</span><input id="lowOpacity" type="range" min="0" max="1" step="0.01" value="0.86"><output data-output="lowOpacity">86%</output></div>
+    </section>
+
+    <section class="layer-block">
+      <div class="row compact">
+        <div class="icon mid-icon">M</div>
+        <div class="info"><div class="name">Mid atmosphere</div><div class="desc">Altostratus, altocumulus · 3–8 km</div></div>
+        <label class="switch"><input data-layer="mid" type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="range-row"><span>Opacity</span><input id="midOpacity" type="range" min="0" max="1" step="0.01" value="0.74"><output data-output="midOpacity">74%</output></div>
+    </section>
+
+    <section class="layer-block">
+      <div class="row compact">
+        <div class="icon high-icon">H</div>
+        <div class="info"><div class="name">High atmosphere</div><div class="desc">Cirrus and ice cloud · 8 km+</div></div>
+        <label class="switch"><input data-layer="high" type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="range-row"><span>Opacity</span><input id="highOpacity" type="range" min="0" max="1" step="0.01" value="0.66"><output data-output="highOpacity">66%</output></div>
+    </section>
+
+    <div class="section-label">WEATHER OVERLAYS</div>
+    <div class="row compact"><div class="icon">◆</div><div class="info"><div class="name">Precipitation</div><div class="desc">Rain and snow shafts</div></div><label class="switch"><input data-layer="rain" type="checkbox" checked><span class="slider"></span></label></div>
+    <div class="row compact"><div class="icon">◉</div><div class="info"><div class="name">Temperature</div><div class="desc">Surface heat columns</div></div><label class="switch"><input data-layer="temperature" type="checkbox" checked><span class="slider"></span></label></div>
+    <div class="row compact"><div class="icon">≋</div><div class="info"><div class="name">Wind</div><div class="desc">Direction traces</div></div><label class="switch"><input data-layer="wind" type="checkbox" checked><span class="slider"></span></label></div>
+
+    <div class="section-label">WATER</div>
+    <div class="range-row"><span>Opacity</span><input id="waterOpacity" type="range" min="0.25" max="1" step="0.01" value="0.88"><output data-output="waterOpacity">88%</output></div>
+    <div class="range-row"><span>Reflectivity</span><input id="waterReflectivity" type="range" min="0" max="1" step="0.01" value="0.58"><output data-output="waterReflectivity">58%</output></div>
+  </aside>
+
+  <aside id="metrics" class="panel">
+    <div class="head"><span>GLOBAL SAMPLE</span></div>
+    <div class="metric"><span>Mean temp</span><b id="mt">—</b></div>
+    <div class="metric"><span>Mean cloud</span><b id="mc">—</b></div>
+    <div class="metric"><span>Peak wind</span><b id="mw">—</b></div>
+    <div class="metric"><span>Wet cells</span><b id="mr">—</b></div>
+  </aside>
+
+  <div id="timeline" class="panel">
+    <button id="play" type="button" aria-label="Play atmospheric timeline">▶</button>
+    <span id="time">NOW</span>
+    <input id="range" type="range" min="-24" max="0" value="0" aria-label="Hours from now">
+  </div>
+
+  <div id="tip"></div>
 </div>
 <script type="module" src="./app.js"></script>
-<!-- GitHub Pages deployment trigger: 2026-07-19 (forced rebuild) -->
 </body>
 </html>
